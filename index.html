@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="music.png">
+    <title>MusicPlayer
+    </title>
+    <script src="https://kit.fontawesome.com/99762185df.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle"> 
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle"> 
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="https://www.tamil2lyrics.com/wp-content/uploads/2017/06/image-5.png" alt="nee-kavithaigala" class="song">
+            <h1>Nee Kavithaigala</h1>
+            <p>Pradeep Kumar</p>
+
+        <audio id="songs">
+                <source src="nee.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrl"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let songs = document.getElementById("songs");
+        let ctrl = document.getElementById("ctrl");
+
+        songs.onloadedmetadata = function(){
+            progress.max = songs.duration;
+            progress.value = songs.currentTime;
+        }
+        function playPause(){
+            if(ctrl.classList.contains("fa-pause")){
+                songs.pause();
+                ctrl.classList.remove("fa-pause");
+                ctrl.classList.add("fa-play");
+            }
+            else{
+                    songs.play();
+                    ctrl.classList.add("fa-pause");
+                    ctrl.classList.remove("fa-play");
+                }
+        }
+        if(songs.play()){
+            setInterval(()=>{
+                progress.value = songs.currentTime;
+            },500);
+        }
+        progress.onchange = function(){
+            songs.play();
+            songs.currentTime = progress.value;
+            ctrl.classList.add("fa-pause");
+            ctrl.classList.remove("fa-play");
+        }
+    </script>
+    
+</body>
+</html>
